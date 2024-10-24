@@ -1,33 +1,8 @@
-interface IAddress {
-    street: string,
-    city: string
-}
+//levantar el servidor
+import { PORT } from "./config/envs"
+import server from "./server";
 
-enum userRole {
-    ADMIN = "admin",
-    USER = "user",
-    GUEST = "guest"
-}
-
-type TUser = { // al usar una type generalmente se pone al principio del nombre se coloca                 
-    name: string, // una T mayuscula para saber que es de tipo Types
-    age: number, 
-    email:string, 
-    active: boolean,
-    address: IAddress,
-    role: string // "admin", "user", "guest"
-}
-
-const user1: TUser = {
-    name: "steven",
-    age: 26,
-    email: "steven@mail.com",
-    active: true,
-    address: {
-        street: "timiza",
-        city: "Bogota"
-    },
-    role: userRole.USER
-}
-
-console.log(user1);
+server.listen(PORT, () =>{
+    console.log(`Server listen on port ${PORT}`);
+    
+})
