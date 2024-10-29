@@ -1,8 +1,19 @@
 import { Request, Response } from "express"
 import { AppointmentRegisterDTO } from "../dtos/AppointmentDTO"
 import { cancelStatusAppointmentService, getAppointmentByIdService, getAppontmentService, resgisterAppointmentService } from "../services/appointmentService"
+import { PostgresError } from "../interfaces/ErrorInterfaces"
 
 
+export const handleErrorResponse = (error: unknown, res: Response, message: string): void => {
+    
+    const err = error as PostgresError
+
+    const errorMessage = {
+        message: message,
+        details: error instanceof Error ? err.detail ? err.detail: error.message : "Error desconocido"
+    }
+    res.status(400).json(errorMessage)
+}
 
 export const getAppointmentsController = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -12,12 +23,10 @@ export const getAppointmentsController = async (req: Request, res: Response): Pr
             data: serviceResponse
         })
     } catch (error) {
-        res.status(500).json({
-            message: "hubo un error en la aplicacion",
-            error: error
-        })
-    }
+        handleErrorResponse(error, res, "error al obtener todas las citas")
+        }
 }
+
 export const getAppointmentsByIdController = async (req: Request<{ id: string }>, res: Response): Promise<void> => {
     const { id } = req.params
     try {
@@ -27,10 +36,7 @@ export const getAppointmentsByIdController = async (req: Request<{ id: string }>
             data: serviceResponse
         })
     } catch (error) {
-        res.status(500).json({
-            message: "hubo un error en la aplicacion",
-            error: error
-        })
+        handleErrorResponse(error, res, "error al obtener las citas por id")
     }
 }
 export const registerAppointmentsController = async (req: Request<unknown, unknown, AppointmentRegisterDTO>, res: Response): Promise<void> => {
@@ -42,10 +48,7 @@ export const registerAppointmentsController = async (req: Request<unknown, unkno
             data: serviceResponse
         })
     } catch (error) {
-        res.status(500).json({
-            message: "hubo un error en la aplicacion",
-            error: error
-        })
+        handleErrorResponse(error, res, "error al registrar una nueva cita")
     }
 }
 export const cancelStatusAppointmentController = async (req: Request<{ id: string }>, res: Response): Promise<void> => {
@@ -57,9 +60,6 @@ export const cancelStatusAppointmentController = async (req: Request<{ id: strin
             data: serviceResponse
         })
     } catch (error) {
-        res.status(500).json({
-            message: "hubo un error en la aplicacion",
-            error: error
-        })
+        handleErrorResponse(error, res, "error al cancelar la cita")
     }
 }
