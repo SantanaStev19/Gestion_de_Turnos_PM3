@@ -1,10 +1,12 @@
 import { Request, Response } from "express"
 import { AppointmentRegisterDTO } from "../dtos/AppointmentDTO"
-import { cancelStatusAppointmentService, getAppointmentByIdService, getAppointmentService, resgisterAppointmentService } from "../services/appointmentsService"
+import { cancelStatusAppointmentService, getAppointmentByIdService, getAppontmentService, resgisterAppointmentService } from "../services/appointmentService"
+
+
 
 export const getAppointmentsController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const serviceResponse = await getAppointmentService()
+        const serviceResponse = await getAppontmentService()
         res.status(200).json({
             message: "obtener el listado de todos los turnos de todos los usuario ",
             data: serviceResponse
@@ -31,15 +33,10 @@ export const getAppointmentsByIdController = async (req: Request<{ id: string }>
         })
     }
 }
-export const RegisterAppointmentsController = async (req: Request<unknown, unknown, AppointmentRegisterDTO>, res: Response): Promise<void> => {
+export const registerAppointmentsController = async (req: Request<unknown, unknown, AppointmentRegisterDTO>, res: Response): Promise<void> => {
     
-    const appointmentsData: AppointmentRegisterDTO = {
-        date: new Date(req.body.date),
-        time: req.body.time,
-        status: "Active"
-    }
     try {
-        const serviceResponse = await resgisterAppointmentService(appointmentsData)
+        const serviceResponse: AppointmentRegisterDTO = await resgisterAppointmentService(req.body)
         res.status(200).json({
             message: "Agregar un nuevo turno",
             data: serviceResponse

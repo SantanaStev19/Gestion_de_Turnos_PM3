@@ -1,12 +1,13 @@
 import { Request, Response } from "express"
 import { getUserByIdService, getUserService, loginUserService, resgisterUserService } from "../services/userService"
-import { UserRegisterDTO, UserloginDTO } from "../dtos/userDTO"
+import { UserDTO, UserRegisterDTO, UserloginDTO } from "../dtos/userDTO"
+import { User } from "../interfaces/UserInterfaces"
 
 
 export const getUserController = async (req: Request, res: Response): Promise<void> => {
 
     try {
-        const serviceResponse: void = await getUserService()
+        const serviceResponse: UserDTO[] = await getUserService()
         res.status(200).json({
             message: "obtener el listado de todos los usuario",
             data: serviceResponse
@@ -24,7 +25,7 @@ export const getUserByIdController = async (req: Request<{ id: string }>, res: R
 
     const { id } = req.params
     try {
-        const serviceResponse: string = await getUserByIdService(id)
+        const serviceResponse: UserDTO = await getUserByIdService(id)
         res.status(200).json({
             message: "obtener el detalle de un usuario especifico",
             data: serviceResponse
@@ -41,7 +42,7 @@ export const getUserByIdController = async (req: Request<{ id: string }>, res: R
 export const resgiterUserController = async (req: Request<unknown, unknown, UserRegisterDTO>, res: Response): Promise<void> => {
     
     try {
-        const serviceResponse: UserRegisterDTO = await resgisterUserService(req.body)
+        const serviceResponse: User = await resgisterUserService(req.body)
         res.status(201).json({
             message: "registro de un nuevo usuario",
             data: serviceResponse
