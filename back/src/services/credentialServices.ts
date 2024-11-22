@@ -1,7 +1,8 @@
 
 import { EntityManager } from "typeorm"
-import { CredentialModel } from "../config/data-source"
 import { Credential } from "../entities/credentialEntity"
+import { credentialRepository } from "../Repositories/credentialRespository"
+import { CustomError } from "../utils/customError"
 
 
 const crypPass = async (pass: string): Promise<string> => {
@@ -15,7 +16,7 @@ const crypPass = async (pass: string): Promise<string> => {
 }
 
 const checkUserExist = async (username: string): Promise<void> => {
-    const credentialFound: Credential | null = await CredentialModel.findOne({ where: { username }})
+    const credentialFound: Credential | null = await credentialRepository.findOne({ where: { username }})
     if(credentialFound) throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`)
 }
 
@@ -34,10 +35,17 @@ export const getCredentialService = async (entityManager: EntityManager, usernam
 
 export const checkUserCredentials = async (username: string, password: string): Promise<number | undefined> => {
 
-    const credentialFound: Credential | null = await CredentialModel.findOne({ where: { username }})
-    const passwordEncrypt = await crypPass(password)
-    return credentialFound?.password === passwordEncrypt ? credentialFound.id : undefined
+    const credentialFound: Credential | null = await credentialRepository.findOne({ where: { username }})
 
+    if(!credentialFound) throw new CustomError(400,`Usuario o Contraseña incorrectos`)
+    else{
+        const passwordEncrypt = await crypPass(password)
+        if(credentialFound?.password != passwordEncrypt) throw new CustomError(400, `Usuario o Contraseña incorrectos`)
+        else return credentialFound.id
+        
+    }
+    
+    
 }
 
 

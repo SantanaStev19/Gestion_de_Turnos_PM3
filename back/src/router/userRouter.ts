@@ -1,15 +1,18 @@
-import { Request, Response, Router } from "express";
-import { getUserByIdController, getUserController, loginUserController, resgiterUserController } from "../controllers/userControllers";
-import { UserRegisterDTO, UserloginDTO } from "../dtos/userDTO";
+import { NextFunction, Request, Response, Router } from "express";
+import userControllers from "../controllers/userControllers";
+import { UserCredentialDTO, UserRegisterDTO} from "../dtos/userDTO";
+import { validateUserRegisterData } from "../middlewares";
 
 const userRouter: Router = Router()
 
-userRouter.get("/", (req: Request, res: Response) => getUserController(req, res))
+userRouter.get("/", (req: Request, res: Response, next: NextFunction) => userControllers.getUserController(req, res, next))
 
-userRouter.get("/:id", (req: Request<{ id: string }>, res: Response) => getUserByIdController(req, res))
+userRouter.get("/:id", (req: Request<{ id: string }>, res: Response, next: NextFunction) => userControllers.getUserByIdController(req, res, next))
 
-userRouter.post("/register", (req: Request<unknown, unknown, UserRegisterDTO>, res: Response) => resgiterUserController(req, res))
+userRouter.post("/register",
+    (req: Request, res: Response, next: NextFunction) => validateUserRegisterData(req, res, next), 
+    (req: Request< unknown, unknown, UserRegisterDTO >, res: Response, next: NextFunction) => userControllers.resgiterUserController(req, res, next))
 
-userRouter.post("/login", (req: Request<unknown, unknown, UserloginDTO>, res: Response) => loginUserController(req, res))
+userRouter.post("/login", (req: Request<unknown, unknown, UserCredentialDTO>, res: Response, next: NextFunction) => userControllers.loginUserController(req, res, next))
 
 export default userRouter

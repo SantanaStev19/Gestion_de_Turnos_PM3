@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Credential } from "./credentialEntity";
+import { Appointment } from "./appointmentsEntity";
 
 
 @Entity("users")
@@ -23,9 +24,13 @@ export class User {
     @JoinColumn()
     credentials: Credential
 
+    @OneToMany(() => Appointment, appointment => appointment.user, { nullable: false })
+    appointments: Appointment[]
+
     @CreateDateColumn()
-    createdAt: Date;
+    createdAd?: Date
 
     @UpdateDateColumn()
-    updateAt: Date;
+    updateAt?: Date
+
 }
