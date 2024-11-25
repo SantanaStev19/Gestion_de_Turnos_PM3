@@ -11,7 +11,6 @@ server.use(express.json())
 server.use(morgan("dev"))
 server.use(cors())
 server.use(router)
-
 server.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
     
     const error = err as PostgresError
