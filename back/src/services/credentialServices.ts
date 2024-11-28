@@ -20,6 +20,8 @@ const checkUserExist = async (username: string): Promise<void> => {
     if(credentialFound) throw new Error(`El usuario con username: ${username} ya existe, intente con un nuevo username`)
 }
 
+
+
 export const getCredentialService = async (entityManager: EntityManager, username: string, password: string): Promise<Credential> => {
 
     await checkUserExist(username)
@@ -37,7 +39,7 @@ export const checkUserCredentials = async (username: string, password: string): 
 
     const credentialFound: Credential | null = await credentialRepository.findOne({ where: { username }})
 
-    if(!credentialFound) throw new CustomError(400,`Usuario o Contraseña incorrectos`)
+    if(!credentialFound) throw new CustomError(400,`Usuario ${username} no esta registrado`)
     else{
         const passwordEncrypt = await crypPass(password)
         if(credentialFound?.password != passwordEncrypt) throw new CustomError(400, `Usuario o Contraseña incorrectos`)

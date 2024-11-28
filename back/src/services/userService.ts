@@ -34,6 +34,8 @@ export const resgisterUserService = async (user: UserRegisterDTO): Promise<User>
         })
         return await entityManager.save(newUser)
     })
+
+    
     return result  
 }
 

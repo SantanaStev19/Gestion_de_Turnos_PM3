@@ -20,7 +20,10 @@ server.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
             details: error.detail
         })
     }else{
-        res.status(400).json(error.message)
+        res.status(400).json({
+            message: error.message,
+            details: error.detail
+        })
         }
 })
 

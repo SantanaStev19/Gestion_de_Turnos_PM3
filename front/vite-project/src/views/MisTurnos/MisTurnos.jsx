@@ -1,11 +1,22 @@
-import { useState } from "react"
-import myAppointments from "../../helpers/myAppointmens"
+import { useEffect, useState } from "react"
 import Turno from "../../components/Turno/Turno"
 import Styles from "./MisTurnos.module.css"
+import axios from "axios"
 
 function MisTurnos(){
 
-    const [turnos, setTurnos] = useState(myAppointments)
+    const [turnos, setTurnos] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/appointments")
+            .then((response) => {
+                setTurnos(response.data.data)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
     return(
         <div className={Styles.contenedor}>
             <div className={Styles.contenedor1}>
