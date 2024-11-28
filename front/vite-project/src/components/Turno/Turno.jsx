@@ -1,7 +1,33 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useContext } from "react"
 import Styles from "./Turno.module.css"
+import { UsersContext } from "../../context/UsersContext"
+import Swal from "sweetalert2"
 
 function Turno({ id, date, time, status }){
+
+    const { cancelUserAppointment } = useContext(UsersContext)
+
+    const handleCancel = () => {
+        try {
+            cancelUserAppointment(id)
+            Swal.fire({
+                icon: 'warning',
+                color: "red",
+                title: 'turno cancelado correctamente',
+            })
+                
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'error al cancelar turno'
+            })
+            
+            
+        }
+
+    }
     
     return (
         <div className={Styles.appointmentCard}>
@@ -13,6 +39,12 @@ function Turno({ id, date, time, status }){
                 <p><strong>Fecha:</strong> {date}</p>
                 <p><strong>Hora:</strong> {time}</p>
             </div>
+            <button 
+                className={`${Styles.cancelButton} ${status === "cancelled" ? Styles.desable:""}`}
+                onClick={handleCancel}
+                disabled={status === "cancelled"}
+            >        
+            Cancelar turno</button>
         </div>
     )
 

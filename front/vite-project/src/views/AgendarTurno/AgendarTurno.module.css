@@ -1,0 +1,98 @@
+/* Contenedor principal */
+.container {
+    height: 100vh; /* Ocupa toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a1a, #333333); /* Fondo degradado */
+    color: #ffffff; /* Blanco */
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Título */
+  .title {
+    font-size: 3rem; /* Grande y destacado */
+    font-weight: bold;
+    color: #00ff00; /* Verde */
+    margin-bottom: 30px;
+  }
+  
+  /* Formulario */
+  .form {
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para que sea compacto */
+    background-color: #262626; /* Gris oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Grupo de campos */
+  .formGroup {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  /* Etiquetas */
+  .formGroup label {
+    font-size: 1rem;
+    color: #b0b0b0; /* Gris */
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Campos de entrada */
+  .input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b0b0b0; /* Gris */
+    border-radius: 5px;
+    background-color: hsl(0, 1%, 37%); /* Gris oscuro */
+    color: #ffffff; /* Blanco */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #00ff00; /* Verde */
+  }
+  
+  /* Campo con error */
+  .errorInput {
+    border-color: #ff0000; /* Rojo */
+  }
+  
+  /* Mensaje de error */
+  .error {
+    font-size: 0.875rem;
+    color: #ff0000; /* Rojo */
+    margin-top: 5px;
+  }
+  
+  /* Botón de envío */
+  .formButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #00ff00; /* Verde */
+    color: #1a1a1a; /* Negro */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .formButton:hover {
+    background-color: #008000; /* Verde oscuro */
+    transform: scale(1.05); /* Ligeramente más grande */
+  }
+  
+  .formButton:disabled {
+    background-color: #555555; /* Gris inactivo */
+    cursor: not-allowed;
+  }
+  

@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { registerFormValidates } from '../../helpers/validates'
 import { useFormik } from 'formik'
 import styles from './Register.module.css'
-import axios from 'axios'
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom'
+import { UsersContext } from '../../context/UsersContext.jsx'
 
 const Register = () => {
+
+    const { userRegister } = useContext(UsersContext)
 
     const [mostrarPassword, setMostrarPassword] = useState(false)
     const tooglePassword = () => {
@@ -30,18 +33,17 @@ const Register = () => {
             password: "Contraseña es requerida"
         },
         onSubmit: (values) =>{
-            axios.post('http://localhost:3000/users/register', values)
-            .then((res)=>{
-                if(res.status === 201){
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro exitoso',
-                    })
-                    formik.resetForm()
-                }
-            })
+            userRegister(values)            
+                .then((res)=>{
+                    if(res.status === 201){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro exitoso',
+                        })
+                        formik.resetForm()
+                    }
+                })
             .catch((err) => {
-                console.log(err);
                 if(err.response.data.message.includes('username')){
                     Swal.fire({
                         icon: 'error',
@@ -177,7 +179,11 @@ const Register = () => {
                 }
             >
                 Registrar
-            </button>       
+            </button>
+            <br />
+            <label className={styles.formLabelregister}>
+                Ya tienes una cuenta? <Link to="/login">Iniciar sesión</Link>
+            </label>       
         </form>
     )
 

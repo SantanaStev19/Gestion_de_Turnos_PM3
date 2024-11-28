@@ -3,7 +3,7 @@
     border-radius: 8px;
     padding: 16px;
     margin: 16px;
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
 }
@@ -39,4 +39,35 @@
 .inactive {
     color: #dc3545;
     font-weight: bold;
+}
+
+.cancelButton {
+    background-color: #007bff; /* Azul */
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.cancelButton:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+.cancelButton:disabled {
+    background-color: #6c757d; /* Gris */
+    cursor: not-allowed;
+}
+
+.cancelButton:disabled:hover {
+    background-color: #6c757d;
+}
+
+.desable {
+    background-color: #6c757d; /* Gris */
 }

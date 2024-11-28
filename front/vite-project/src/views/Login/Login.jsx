@@ -1,11 +1,16 @@
-import axios from "axios";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import { loginFormValidates } from "../../helpers/loginValidates";
 import styles from "./Login.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UsersContext } from "../../context/UsersContext.jsx";
 
 function Login() {
+
+    const { userLogin } = useContext(UsersContext)
+
+    const navigate = useNavigate()
 
     const [mostrarPassword, setMostrarPassword] = useState(false)
     const tooglePassword = () => {
@@ -22,14 +27,15 @@ function Login() {
         },
         validate: loginFormValidates,
         onSubmit: (values) => {
-            axios
-                .post("http://localhost:3000/users/login", values)
+            userLogin(values)
                 .then((res) => {
                     if (res.status === 200) 
                         Swal.fire({
                             icon: "success",
                             title: "Inicio de sesión exitoso",
                         });
+                    navigate("/")
+
                 })
                 .catch((err) => {
                     if (err.response.data.message){
@@ -102,6 +108,10 @@ function Login() {
             >
                 Iniciar Sesión
             </button>
+            <br />
+            <label className={styles.formLabelregister}>
+                Aun no tienes cuenta? <Link to="/register">Registrate</Link>
+            </label>
         </form>
     );
 }

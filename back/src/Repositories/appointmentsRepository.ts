@@ -38,7 +38,7 @@ export const AppointmentRepository = AppDataSource.getRepository(Appointment).ex
                 time: time
             }
         })
-        if(appointmentFound) throw new Error(`La cita con fecha ${date} y hora ${time} ya fue asignada para el usuario con id ${userId}`)
+        if(appointmentFound) throw new Error(`El usuario no puede tener dos citas el mismo dia y a la misma hora`)
     }
     
 })

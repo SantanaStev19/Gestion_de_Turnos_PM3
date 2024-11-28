@@ -1,0 +1,44 @@
+/* Contenedor principal de la barra de navegación */
+.navbarContaijner {
+    background-color: #1a1a1a; /* Negro */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Contenedor de la navegación */
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilos para cada elemento de la lista */
+  .navbarLi {
+    margin: 0 15px;
+  }
+  
+  /* Estilos para los enlaces */
+  .link {
+    text-decoration: none;
+    color: #ffffff; /* Blanco */
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent; /* Subrayado invisible */
+  }
+  
+  /* Enlace activo */
+  .active {
+    color: #00ff00; /* Verde */
+    border-bottom: 2px solid #00ff00; /* Subrayado verde */
+  }
+  
+  /* Hover efecto */
+  .link:hover {
+    color: #b0b0b0; /* Gris */
+    border-bottom: 2px solid #b0b0b0; /* Subrayado gris */
+  }
+  

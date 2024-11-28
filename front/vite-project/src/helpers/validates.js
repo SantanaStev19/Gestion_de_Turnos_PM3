@@ -44,3 +44,28 @@ export const registerFormValidates = (input) => {
 
     return errors
 }
+
+const isValidTime = (time) => {
+    const [hours, minutes] = time.split(":").map(Number)
+    const totalMinutes = hours * 60 + minutes
+    const startTime = 8 * 60
+    const endTime = 17 * 60
+    return totalMinutes >= startTime && totalMinutes < endTime
+}
+
+export const dateTimeValidate = (input) => {
+    const errors = {}
+    const { date, time } = input
+
+    const selectedDateTime = new Date(`${date}T${time}`)
+    const now = new Date()
+    const twentyFourHours = new Date(now.getTime() + 24 * 60 * 60 * 1000)
+
+    if(!date) errors.date = "La fecha es obligatoria"
+    else if(selectedDateTime < now) errors.date = "No puedes agendar citas para fechas pasadas"
+    else if(selectedDateTime < twentyFourHours) errors.date = "Debes seleccionar una fecha con por lo menos 24 horas de antelacion"
+    else if(selectedDateTime.getDay() === 0 || selectedDateTime.getDay() === 6) errors.date = "No se puede agendar citas los fines de semana"
+    console.log(errors.date);
+    if(!time) errors.time = "La hora es obligatoria"
+    else if(!isValidTime(time)) errors.time = "La hora debe ser entre las 8am y las 6pm"
+}

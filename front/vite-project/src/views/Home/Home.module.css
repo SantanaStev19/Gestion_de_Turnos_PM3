@@ -1,44 +1,53 @@
-/* Contenedor principal de la vista Home */
+/* Contenedor principal */
 .view {
+    height: 100vh; /* Ocupa toda la pantalla */
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 16px auto;
-    max-width: 800px;
-}
-
-.view h1 {
-    font-size: 24px;
-    color: #222;
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, #1a1a1a, #333333); /* Fondo degradado */
+    color: #ffffff; /* Blanco */
     text-align: center;
-}
-
-/* Navbar (estilo sugerido para integración) */
-.navbar {
-    display: flex;
-    justify-content: center;
-    background-color: #007bff;
-    padding: 10px 20px;
+    padding: 20px;
+  }
+  
+  /* Título principal */
+  .title {
+    font-size: 4rem; /* Título amplio */
+    font-weight: bold;
+    color: #00ff00; /* Verde */
+    margin-bottom: 20px;
+  }
+  
+  /* Subtítulo */
+  .subtitle {
+    font-size: 1.5rem;
+    color: #b0b0b0; /* Gris */
+    margin-bottom: 40px;
+  }
+  
+  /* Botón */
+  .button {
+    background-color: #00ff00; /* Verde */
+    color: #1a1a1a; /* Negro */
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
     border-radius: 8px;
-    width: 100%;
-    max-width: 700px;
-    margin-top: 16px;
-}
-
-.navbar a {
-    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Enlace dentro del botón */
+  .button a {
     text-decoration: none;
-    font-size: 16px;
-    margin: 0 10px;
-    transition: color 0.2s ease;
-}
-
-.navbar a:hover {
-    color: #cce7ff;
-}
+    color: inherit; /* Hereda el color del botón */
+  }
+  
+  /* Hover en botón */
+  .button:hover {
+    background-color: #008000; /* Verde oscuro */
+    transform: scale(1.05); /* Ligero aumento al pasar el mouse */
+  }
+  
