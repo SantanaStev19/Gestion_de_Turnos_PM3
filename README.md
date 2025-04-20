@@ -21,7 +21,7 @@ Incluye autenticación, control de roles y persistencia en base de datos relacio
   - TypeScript
 
 - **Base de datos:**
-  - PostgreSQL (mediante Sequelize ORM)
+  - PostgreSQL (mediante TypeORM)
 
 - **Otras herramientas y librerías:**
   - JSON Web Tokens (JWT) para autenticación
